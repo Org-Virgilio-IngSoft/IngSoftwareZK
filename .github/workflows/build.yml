@@ -3,10 +3,10 @@ on:
   # a pull request.
   push:
     branches:
-      - master
+      - main
   #pull_request:                                commented by me
       #types: [opened, synchronize, reopened]   commented by me
-name: Main Workflow
+name: My Workflow ZK
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
