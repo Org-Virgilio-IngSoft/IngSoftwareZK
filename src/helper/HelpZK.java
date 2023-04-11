@@ -13,7 +13,9 @@ import java.util.Properties;
  */
 public class HelpZK {
 
-	public String getMyProperty(String propertyName) throws IOException {
+	private static HelpZK instance;
+	
+	public static String getMyProperty(String propertyName) throws IOException {
 		String config="config";
 		
 		try(FileReader fr = new FileReader(config)){
@@ -24,5 +26,18 @@ public class HelpZK {
 		}//try
 		  	
 	}//fine metodo
+	
+	private HelpZK() {
+		 //private constructor
+	 }
+
+	 
+	 public static HelpZK getInstance() {
+	     if (instance == null) {
+	    	 instance = new HelpZK();
+	     }
+
+	     return instance;
+	}//fine 
 	
 }
