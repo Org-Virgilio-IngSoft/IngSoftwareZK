@@ -44,11 +44,14 @@ public class LinkageZK {
 			return -1; 
 		 }
 		 
-		 return (countTickets/count) ;
-			
-		}//try
-		
-		 
+		 return (countTickets/count) ;			
+		}//try				 
 	}//fine metodo
+  
+  
+  
+    private LinkageZK() {
+  	
+    }
 	
 }

@@ -44,4 +44,9 @@ public class HelpInfoProjectZK {
 		return datesVersions;
 	}//fine metodo
 	
+    
+    private HelpInfoProjectZK(){
+    	
+    }
+    
 }
