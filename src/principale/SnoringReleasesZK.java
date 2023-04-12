@@ -12,7 +12,7 @@ public class SnoringReleasesZK {
 		int count = 0;
     	int i = 0;
     	String lineFile="";  
-    	String split[];
+    	String[] split;
 		
 		try(FileReader fr=new FileReader(pathInfoFileProject);
     	    BufferedReader br=new BufferedReader(fr); ){
