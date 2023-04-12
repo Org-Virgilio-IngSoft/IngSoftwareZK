@@ -20,14 +20,13 @@ public class ClassToExecuteZK {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		LinkageZK link = new LinkageZK();	
 		
 		String pathLogZK = HelpZK.getMyProperty("pathLogFileLinkage");
 			
-		double l = link.calculateLinkageZK(pathLogZK);
+		double linkage = LinkageZK.calculateLinkageZK(pathLogZK);
 		
 		Logger logger=Logger.getLogger("MyLogger");
-		logger.log(Level.INFO ,"LINKAGE ZOOKEEPER: {0}", l);
+		logger.log(Level.INFO ,"LINKAGE ZOOKEEPER: {0}", linkage);
 				
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteZK!!");

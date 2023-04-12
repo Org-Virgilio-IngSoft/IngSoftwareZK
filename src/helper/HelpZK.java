@@ -17,7 +17,7 @@ public class HelpZK {
 		String config="configZK";
 		
 		try(FileReader fr = new FileReader(config)){
-			var property = new Properties();
+			Properties property = new Properties();
 			property.load(fr);
 			
 			return property.getProperty(propertyName);
@@ -65,6 +65,9 @@ public class HelpZK {
 	}//fine metodo
 	
 	
+     private HelpZK() {
+		
+	}
     
 	
 }

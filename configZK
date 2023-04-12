@@ -1,6 +1,7 @@
 userid=postgres
 password=A6YhbvtE82
 
+pathRepoZookeeper=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\zookeeper
 pathLogFileLinkage=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\gitLogLinkage.txt
 pathLogFileNOsnoring=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\gitLogNOsnoring.txt
 pathInfoFileProject=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\ZOOKEEPERVersionInfo.csv
