@@ -51,10 +51,13 @@ public class CommitTicketZK {
 				if(lineFile.startsWith("    ZOOKEEPER-") ||  lineFile.startsWith("    [ZOOKEEPER-") ) {
 					ticket=HelpZK.projectStringTicket(lineFile);
 					String queryInsert="INSERT INTO \"CommitTicketsZK\" ( \"Commit\" ,\"TicketID\" ,\"Date\")  "+
-							"VALUES ( '"+commit+"' ,'"+ticket+"','"+date+"' )";
-					
+							"VALUES ( ? , ?, ? )";
+					         
 					try(PreparedStatement statUpdate=con.prepareStatement(queryInsert) ){
-					statUpdate.executeUpdate();
+						statUpdate.setString(1, commit);
+					    statUpdate.setString(2, ticket);
+					    statUpdate.setString(3, date);
+						statUpdate.executeUpdate();
 					}
 				}								
 					
