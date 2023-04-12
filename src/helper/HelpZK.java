@@ -12,8 +12,6 @@ import java.util.Properties;
  *
  */
 public class HelpZK {
-
-	private static HelpZK instance;
 	
 	public static String getMyProperty(String propertyName) throws IOException {
 		String config="configZK";
@@ -67,18 +65,6 @@ public class HelpZK {
 	}//fine metodo
 	
 	
-    ////////////////////////////////////////////////////
-	private HelpZK() {
-		 //private constructor
-	 }
-
-	 
-	 public static HelpZK getInstance() {
-	     if (instance == null) {
-	    	 instance = new HelpZK();
-	     }
-
-	     return instance;
-	}//fine 
+    
 	
 }
