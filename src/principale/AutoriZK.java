@@ -49,7 +49,7 @@ public class AutoriZK {
       				
       			if(count==3) {
     					
-    					String queryInsert="INSERT INTO \"AutoriZK\" (  \"NameAuthor\" , \"Commit\" , \"DataCommit\")  "+
+    					String queryInsert="INSERT INTO \"AutoriZK\" (  \"NameAuthor\" , \"Commit\" , \"DateCommit\")  "+
     							"VALUES ( ? , ?, ? )";
     					try(PreparedStatement statUpdate=con.prepareStatement(queryInsert) ){
     					    statUpdate.setString(1, autore);
