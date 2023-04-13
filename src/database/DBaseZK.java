@@ -16,11 +16,11 @@ import helper.HelpZK;
  */
 public class DBaseZK {
 
-	private String urlDBzookeeper="jdbc:postgresql://localhost:5432/TicketBugDB_ZOOK";
+	private static String urlDBzookeeper="jdbc:postgresql://localhost:5432/TicketBugDB_ZOOK";
 
 	
 	//metodo per la connessione verso il database con i dati di Zookeeper
-		public Connection  connectToDBtickectBugZookeeper() throws SQLException, IOException {
+		public static Connection  connectToDBtickectBugZookeeper() throws SQLException, IOException {
 			String user;
 			String password;
 			

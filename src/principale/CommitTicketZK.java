@@ -25,9 +25,8 @@ public class CommitTicketZK {
 		String lineFile;		
 		
 		Connection con;		
-        DBaseZK db=new DBaseZK();
-        
-       con =db.connectToDBtickectBugZookeeper();
+    
+        con =DBaseZK.connectToDBtickectBugZookeeper();
         
            
 		try (

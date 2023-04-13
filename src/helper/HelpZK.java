@@ -5,6 +5,9 @@ package helper;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 /**
@@ -65,6 +68,41 @@ public class HelpZK {
 	}//fine metodo
 	
 	
+  //metodo per ottere la data subito precedente rispetto ad una data di riferimento	
+    public static int dateBeforeDate(String myDate, String[] dates) throws ParseException {
+		
+		int lung; 
+		var i=0;
+		
+		lung=dates.length;
+		
+		var sdf = new SimpleDateFormat("yyyy-MM-dd");	
+		var inputDate=sdf.parse(myDate);
+		Date date;
+		
+		
+		for( i=0;i<lung;i++) {
+			date=sdf.parse( dates[i] );
+			
+			if(inputDate.after(date)) {
+				//if per trovare la data precedente di inputDate
+			}
+		    
+			else {
+				break;
+			}
+		}//for
+					
+		if(i==0){
+		  i=0;
+		  return i;
+		}
+		
+		return i-1;
+	}
+
+    
+    
      private HelpZK() {
 		
 	}

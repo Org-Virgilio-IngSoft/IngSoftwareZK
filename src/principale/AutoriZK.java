@@ -19,10 +19,9 @@ public class AutoriZK {
 		int count=0;
 		String lineFile;
 		
-		Connection con;		
-        DBaseZK db=new DBaseZK();
+		Connection con;		      
         
-        con =db.connectToDBtickectBugZookeeper();
+        con =DBaseZK.connectToDBtickectBugZookeeper();
         
         try (
         	FileReader fr=new FileReader(pathLogGitFile);

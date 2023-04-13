@@ -40,11 +40,11 @@ public class LinkageZK {
 				}
 		 }//while
 		 				 
-		 if(count==0.0) {
+		 if(count==0) {
 			return -1; 
 		 }
 		 
-		 return (countTickets/count) ;			
+		 return (  (double)countTickets/count) ;			
 		}//try				 
 	}//fine metodo
   

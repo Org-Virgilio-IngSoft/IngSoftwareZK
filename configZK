@@ -5,5 +5,6 @@ pathRepoZookeeper=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\zookeep
 pathLogFileLinkage=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\gitLogLinkage.txt
 pathLogFileNOsnoring=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\gitLogNOsnoring.txt
 pathInfoFileProject=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\ZOOKEEPERVersionInfo.csv
+pathFileTicketsWithAffectedVersions=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsIDwithAffectedVersionZK.csv
 
 dateNOsnoring=2016-02-22
