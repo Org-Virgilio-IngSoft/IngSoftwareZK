@@ -30,6 +30,8 @@ public class DBaseZK {
 			return DriverManager.getConnection(urlDBzookeeper,user,password);
 		}
 		
+	private DBaseZK()	{
 		
+	}
 	
 }

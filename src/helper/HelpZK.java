@@ -101,6 +101,21 @@ public class HelpZK {
 		return i-1;
 	}
 
+    public int findMin(int[] numbers) {
+		int min=numbers[0];
+		int temp;
+		int i=0;
+		
+		for( i=1;i<numbers.length;i++) {
+			temp=numbers[i];
+			if(temp<min) {
+				min=temp;
+			}		
+		}
+		
+		return min;
+    }//fine metodo	
+    
     
     
      private HelpZK() {
