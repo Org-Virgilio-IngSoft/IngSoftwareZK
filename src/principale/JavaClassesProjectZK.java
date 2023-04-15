@@ -12,31 +12,31 @@ import java.util.List;
 
 import commands.CommandGitShowZK;
 import database.DBaseZK;
-import helper.HelpInfoProjectZK;
 import helper.HelpZK;
+import helper.HelpInfoProjectZK;
 
-public class JavaClassesProjectZK {
+public class JavaClassesProjectZK { 
 
 	//metodo per associare una versione ad una classe java
 		public void createVersionJavaClassPairs(String fileLogGit,String projectInfo) throws IOException, ParseException, SQLException, InterruptedException{
- 
+						 
 			String line;		 	
-			String version;
+			int version;
 			String commit="";
 			String dataCommit="/";
 			List<String> nameFiles; 
-			int indexDataJavaClassVersion;			
+			int indexDataJavaClassVersion;
 			
 		    Connection con;
 
-			String queryInsert;
-							
+			String queryInsert;			
+					
 			String[] datesVersions;
-			String[] versions;
+			int[] versions;
 			
 			con=DBaseZK.connectToDBtickectBugZookeeper();
-			
-			versions=HelpInfoProjectZK.getVersions(projectInfo);
+				
+			versions=HelpInfoProjectZK.getVersionsIndex(projectInfo);
 			datesVersions = HelpInfoProjectZK.getDatesOfVersions(projectInfo);
 		
 					
@@ -66,7 +66,7 @@ public class JavaClassesProjectZK {
 						
 					    for(var i=0;i<nameFiles.size();i++) {
 									
-						 queryInsert="INSERT INTO \"ListJavaClassesZK\" ( \"NameClass\" , \"Commit\" , \"DateCommit\" , \"Version\")  " + 
+						 queryInsert="INSERT INTO \"ListJavaClassesBK\" ( \"NameClass\" , \"Commit\" , \"DateCommit\" , \"Version\")  " + 
 								"VALUES ( ? , ?, ? ,?) ";
 								
 						
@@ -74,7 +74,7 @@ public class JavaClassesProjectZK {
 							statUpdate.setString(1, nameFiles.get(i) );
 	    					statUpdate.setString(2, commit);
 	    			        statUpdate.setString(3, dataCommit);
-	    			        statUpdate.setString(4, version);
+	    			        statUpdate.setInt(4, version);
 						    statUpdate.executeUpdate();
 						}//try interno
 						
@@ -90,7 +90,7 @@ public class JavaClassesProjectZK {
 		}//fine metodo
 		
 		
-		public List<String> searchAndGetFileNames(String commit) throws IOException, InterruptedException {
+      public List<String> searchAndGetFileNames(String commit) throws IOException, InterruptedException {
 			List<String> commandResult;
 			var sizeResult=0;
 			

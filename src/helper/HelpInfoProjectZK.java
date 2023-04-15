@@ -9,41 +9,68 @@ import java.util.List;
 public class HelpInfoProjectZK {
 
 	
-	public static String[] getVersions(String projectInfo) throws IOException {
-    	int lung=0; 
-    	String[] info; 
-    	
-    	Path path= Paths.get(projectInfo);
-    	List<String> linesProjectInfoFile =Files.readAllLines(path);
-		lung=linesProjectInfoFile.size();
+	 public static int[] getVersionsIndex(String projectInfo) throws IOException {
+	    	int lungFile=0; 
+	    	int i = 0;
+	    	String[] info; 
+	    	
+	    	Path path= Paths.get(projectInfo);
+	    	List<String> linesProjectInfoFile =Files.readAllLines(path);
+			lungFile=linesProjectInfoFile.size();
+				
+			int[] versions = new int[lungFile];
+			int lungVersions = versions.length;
 			
-		String[] versions = new String[lung-1];
-		
-		for(int i=1;i<lung;i++) {
-			info=linesProjectInfoFile.get(i).split(",");
-			versions[i-1]=info[0];			
-		}
-		
-		return versions;
-	}//fine metodo
+			for( i=1; i<lungVersions ;i++) {
+				info=linesProjectInfoFile.get(i).split(",");
+				versions[i]= Integer.parseInt(info[0]);	
+				//System.out.println("i "+i+" version "+versions[i]);
+			}
+			
+			return versions;
+		}//fine metodo
 	
-    public static String[] getDatesOfVersions(String projectInfo) throws IOException {
-        int lung=0; 
-        String[] info; 
-    	
-    	Path path= Paths.get(projectInfo);
-    	List<String> linesProjectInfoFile =Files.readAllLines(path);
-		lung=linesProjectInfoFile.size();
-		
-		String[] datesVersions = new String[lung-1];
-		
-		for(int i=1;i<lung;i++) {
-			info=linesProjectInfoFile.get(i).split(",");
-			datesVersions[i-1]=info[3].substring(0, 10);		
-		}
-		
-		return datesVersions;
-	}//fine metodo
+	 public static String[] getNamesOfVersions(String projectInfo) throws IOException {
+	    	int lungFile=0; 
+	    	int i = 0;
+	    	String[] info; 
+	    	
+	    	Path path= Paths.get(projectInfo);
+	    	List<String> linesProjectInfoFile =Files.readAllLines(path);
+			lungFile=linesProjectInfoFile.size();
+				
+			String[] namesVersions = new String[lungFile];
+			int lungNamesVersions = namesVersions.length;
+			
+			for(i=1;i<lungNamesVersions;i++) {
+				info=linesProjectInfoFile.get(i).split(",");
+				namesVersions[i]=info[2];	
+				//System.out.println("i "+i+" NamesVersion "+namesVersions[i]);
+			}
+			
+			return namesVersions;
+		}//fine metodo
+	 
+	 public static String[] getDatesOfVersions(String projectInfo) throws IOException {
+	        int lungFile=0; 
+	        int i = 0;
+	        String[] info; 
+	    	
+	    	Path path= Paths.get(projectInfo);
+	    	List<String> linesProjectInfoFile =Files.readAllLines(path);
+			lungFile=linesProjectInfoFile.size();
+			
+			String[] datesVersions = new String[lungFile];
+			int lungDatesVersions = datesVersions.length;
+			
+			for( i=1;i<lungDatesVersions;i++) {
+				info=linesProjectInfoFile.get(i).split(",");
+				datesVersions[i]=info[3].substring(0, 10);		
+				//System.out.println("i "+i+" DatesVersion "+datesVersions[i]);
+			}
+			
+			return datesVersions;
+		}//fine metodo
 	
     
     private HelpInfoProjectZK(){

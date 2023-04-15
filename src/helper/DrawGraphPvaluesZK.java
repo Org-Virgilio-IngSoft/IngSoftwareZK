@@ -23,11 +23,7 @@ public class DrawGraphPvaluesZK extends ApplicationFrame {
 		
 		double[] py= {1.0 ,2.0, 3.0, 4.0 };
 		double[] px= {1.0 ,2.0, 3.0, 4.0 };
-		disegna(px,py);
-		 /* final XYSeriesDemo demo = new XYSeriesDemo("XY Series Demo");
-	        demo.pack();
-	        RefineryUtilities.centerFrameOnScreen(demo);
-	        demo.setVisible(true);*/
+		disegna(px,py);		
 
 	}
 	

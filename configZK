@@ -6,5 +6,8 @@ pathLogFileLinkage=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\gitLog
 pathLogFileNOsnoring=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\gitLogNOsnoring.txt
 pathInfoFileProject=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\ZOOKEEPERVersionInfo.csv
 pathFileTicketsWithAffectedVersions=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsIDwithAffectedVersionZKok.csv
+pathTicketsIDwithAffectedVersionAndIDversionZK=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsIDwithAffectedVersionAndIDversionZK.txt
+pathTicketsBugWithFVOVdates=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsBugWithFVOVdates.txt
+
 
 dateNOsnoring=2016-02-22

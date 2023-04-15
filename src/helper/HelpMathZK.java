@@ -3,7 +3,7 @@
  */
 package helper;
 
-
+import java.util.List;
 
 /**
  * @author Virgilio
@@ -40,7 +40,7 @@ public class HelpMathZK {
 		return min;
     }//fine metodo	
     
-    public static double mean(double[] numbers) {
+    public static double findMean(double[] numbers) {
     	double total = 0;
     	
     	 
@@ -51,6 +51,16 @@ public class HelpMathZK {
         return total / numbers.length;
     }//fine metodo
 
+    public static double findMean(List<Double> numbers) {
+    	double total = 0;
+    	
+    	 
+    	for(int i=0; i<numbers.size(); i++){
+         	total = total + numbers.get(i);        
+    	}
+
+        return total / numbers.size();
+    }//fine metodo
     
 	
 }
