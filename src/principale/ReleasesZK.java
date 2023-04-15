@@ -5,7 +5,6 @@ package principale;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,8 +28,9 @@ import helper.HelpInfoProjectZK;
  */
 public class ReleasesZK {
 
+	private final static String  pathInfoFileProject="pathInfoFileProject";
 		
-	public static void findAffectedVersionsIndex(String pathFileWithKnownAffectedVersions) throws FileNotFoundException, IOException {
+	public static void findAffectedVersionsIndex(String pathFileWithKnownAffectedVersions) throws  IOException {
 		
 		String lineFileRead;
 		String[] splitNameVersion;    // file With Known Injected Version
@@ -39,7 +40,7 @@ public class ReleasesZK {
 		
         String[] namesOfAllVersions;
 		
-		String pathFileInfoProject= HelpZK.getMyProperty("pathInfoFileProject");
+		String pathFileInfoProject= HelpZK.getMyProperty(pathInfoFileProject);
 		String pathAffectedVersionAndIDversion = HelpZK.getMyProperty("pathTicketsIDwithAffectedVersionAndIDversionBK");
 		
 		namesOfAllVersions=HelpInfoProjectZK.getNamesOfVersions(pathFileInfoProject);		
@@ -56,14 +57,12 @@ public class ReleasesZK {
 			 while( (lineFileRead=br.readLine() ) !=null ) {
 				 splitNameVersion=lineFileRead.split(",");
 				 cleanSplitNameVersion = getRidOfEmptyString(splitNameVersion);
-				//System.out.println("in while");
-				 
+								 
 				 bw.write(cleanSplitNameVersion[0]+",");
 				 for (i = 1; i < cleanSplitNameVersion.length ; i++) {
 					 index=getIndexVersionFromName(cleanSplitNameVersion[i],namesOfAllVersions);
 					 bw.write(cleanSplitNameVersion[i]+","+index+",");			 
-					 
-					//System.out.println("in for");
+					 					
 				}
 				bw.write("fine_riga\n"); 
 				bw.flush();
@@ -75,25 +74,25 @@ public class ReleasesZK {
 	}//fine metodo
 	
 	
-	public static void findInjectedVersions(String pathFileWithKnownInjectedVersionsIndex) throws FileNotFoundException, IOException, SQLException {
+	public static void findInjectedVersions(String pathFileWithKnownInjectedVersionsIndex) throws  IOException, SQLException {
 	     
 		String lineFile;
 		String[] split;
 		int i;
         
-        List<Integer> temporary= new ArrayList<Integer>();
-        List<Integer> injectedVersions= new ArrayList<Integer>();
-        List<String> ticketsBugID= new ArrayList<String>();  //tickets with affected version 
+        List<Integer> temporary= new ArrayList<>();
+        List<Integer> injectedVersions= new ArrayList<>();
+        List<String> ticketsBugID= new ArrayList<>();  //tickets with affected version 
       
-        List<String> listSQLbugID= new ArrayList<String>();
-        List<Integer> listSQLiv= new ArrayList<Integer>();
-        List<String> listSQLdatesIV= new ArrayList<String>();
+        List<String> listSQLbugID= new ArrayList<>();
+        List<Integer> listSQLiv= new ArrayList<>();
+        List<String> listSQLdatesIV= new ArrayList<>();
         
         Connection con;		       
         con =DBaseZK.connectToDBtickectBugZookeeper();
         
-        String pathInfoFileProject = HelpZK.getMyProperty("pathInfoFileProject");
-        String[] datesAllVersions = HelpInfoProjectZK.getDatesOfVersions(pathInfoFileProject);
+        String pathFileProject = HelpZK.getMyProperty(pathInfoFileProject);
+        String[] datesAllVersions = HelpInfoProjectZK.getDatesOfVersions(pathFileProject);
         
         
 		try (
@@ -106,8 +105,7 @@ public class ReleasesZK {
        			  int lungSplit = split.length;
 	              
        			  ticketsBugID.add(split[0]); //this is the name of ticket
-       			  //System.out.print(split[0]+" ");
-       			  
+       			
        			  i=lungSplit-2;
 	              while ( !(split[i].startsWith("ZOOKEEPER-")) ) {
 	            	temporary.add( Integer.parseInt(split[i]) );  
@@ -117,19 +115,19 @@ public class ReleasesZK {
 	              Collections.sort(temporary);
 	              if(temporary.get(0)==-1) {  //-1 means this version is not present in the file project .csv
 	            	 injectedVersions.add(temporary.get(1) );
-	            	 //System.out.println("IV "+temporary.get(1));
+	            	
 	              }
 	              else {
 	            	 injectedVersions.add(temporary.get(0) ); 
-	            	 //System.out.println("IV "+temporary.get(0));
+	            	 
 	              }
 	              
 	              String bugID = ticketsBugID.get(0);
-	              int IV = injectedVersions.get(0);
-	              String dateIV=datesAllVersions[IV];
+	              int iv = injectedVersions.get(0);
+	              String dateIV=datesAllVersions[iv];
 	              
 	              listSQLbugID.add(bugID);
-	              listSQLiv.add(IV);
+	              listSQLiv.add(iv);
 	              listSQLdatesIV.add(dateIV);
 	              
 	              temporary.clear();
@@ -159,7 +157,7 @@ public class ReleasesZK {
 	}//fine metodo
 	
 	
-	public static void findFixVersionsOpenVersionsIndex(String pathFileWithFixVersionsOpenVersions) throws FileNotFoundException, IOException, ParseException, SQLException {
+	public static void findFixVersionsOpenVersionsIndex(String pathFileWithFixVersionsOpenVersions) throws  IOException, ParseException, SQLException {
 		
 		String lineFile;
 		String[] split;
@@ -168,13 +166,13 @@ public class ReleasesZK {
 		int fixV;
 		int openV;
 		
-	     List<Integer> fixVersions= new ArrayList<Integer>();
-	     List<Integer> openVersions= new ArrayList<Integer>();
-	     List<String> listSQLdatesFixV= new ArrayList<String>();
-	     List<String> listSQLdatesopenV= new ArrayList<String>();
-	     List<String> ticketsBugID= new ArrayList<String>();  
+	     List<Integer> fixVersions= new ArrayList<>();
+	     List<Integer> openVersions= new ArrayList<>();
+	     List<String> listSQLdatesFixV= new ArrayList<>();
+	     List<String> listSQLdatesopenV= new ArrayList<>();
+	     List<String> ticketsBugID= new ArrayList<>();  
 			     
-		String pathFileInfoProject= HelpZK.getMyProperty("pathInfoFileProject");				
+		String pathFileInfoProject= HelpZK.getMyProperty(pathInfoFileProject);				
 	    datesAllVersions = HelpInfoProjectZK.getDatesOfVersions(pathFileInfoProject);		
 		
 	    Connection con;		       
@@ -188,7 +186,7 @@ public class ReleasesZK {
 			while( (lineFile=br.readLine() ) !=null ) {
 		         split = lineFile.split(",");
 		         ticketsBugID.add(split[0]);
-		         //System.out.print(split[0]+" ");
+		        
 		         
 		         fixV = HelpZK.dateBeforeDate(split[1], datesAllVersions);
 		         openV = HelpZK.dateBeforeDate(split[2], datesAllVersions);
@@ -260,21 +258,15 @@ public class ReleasesZK {
 		
 		int i = 0;
 		int lungArray = array.length;
-		String[] newArray;
-		
+				
 		for (i = 0; i < lungArray; i++) {
 			if( array[i].isEmpty() ) {
 				break;
 			}			
 		} 
+				
+		return Arrays.copyOf(array,i);
 		
-		newArray = new String[i];
-		int lungNewArray = newArray.length;
-		for (i = 0; i < lungNewArray; i++) {
-			newArray[i] = array[i];										
-		}
-		
-		return newArray;
 	}//fine metodo
 	
 }

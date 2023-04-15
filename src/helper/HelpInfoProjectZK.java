@@ -24,7 +24,7 @@ public class HelpInfoProjectZK {
 			for( i=1; i<lungVersions ;i++) {
 				info=linesProjectInfoFile.get(i).split(",");
 				versions[i]= Integer.parseInt(info[0]);	
-				//System.out.println("i "+i+" version "+versions[i]);
+				
 			}
 			
 			return versions;
@@ -45,7 +45,7 @@ public class HelpInfoProjectZK {
 			for(i=1;i<lungNamesVersions;i++) {
 				info=linesProjectInfoFile.get(i).split(",");
 				namesVersions[i]=info[2];	
-				//System.out.println("i "+i+" NamesVersion "+namesVersions[i]);
+				
 			}
 			
 			return namesVersions;
@@ -66,7 +66,7 @@ public class HelpInfoProjectZK {
 			for( i=1;i<lungDatesVersions;i++) {
 				info=linesProjectInfoFile.get(i).split(",");
 				datesVersions[i]=info[3].substring(0, 10);		
-				//System.out.println("i "+i+" DatesVersion "+datesVersions[i]);
+				
 			}
 			
 			return datesVersions;
