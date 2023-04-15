@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,9 +27,9 @@ import helper.HelpInfoProjectZK;
  */
 public class ReleasesZK {
 
-	private final static String  pathInfoFileProject="pathInfoFileProject";
+	private final String  pathInfoFileProject="pathInfoFileProject";
 		
-	public static void findAffectedVersionsIndex(String pathFileWithKnownAffectedVersions) throws  IOException {
+	public void findAffectedVersionsIndex(String pathFileWithKnownAffectedVersions) throws  IOException {
 		
 		String lineFileRead;
 		String[] splitNameVersion;    // file With Known Injected Version
@@ -56,7 +55,7 @@ public class ReleasesZK {
 			 lineFileRead=br.readLine(); //get rid of title  			
 			 while( (lineFileRead=br.readLine() ) !=null ) {
 				 splitNameVersion=lineFileRead.split(",");
-				 cleanSplitNameVersion = getRidOfEmptyString(splitNameVersion);
+				 cleanSplitNameVersion = HelpZK.getRidOfEmptyString(splitNameVersion);
 								 
 				 bw.write(cleanSplitNameVersion[0]+",");
 				 for (i = 1; i < cleanSplitNameVersion.length ; i++) {
@@ -74,7 +73,7 @@ public class ReleasesZK {
 	}//fine metodo
 	
 	
-	public static void findInjectedVersions(String pathFileWithKnownInjectedVersionsIndex) throws  IOException, SQLException {
+	public void findInjectedVersions(String pathFileWithKnownInjectedVersionsIndex) throws  IOException, SQLException {
 	     
 		String lineFile;
 		String[] split;
@@ -157,7 +156,7 @@ public class ReleasesZK {
 	}//fine metodo
 	
 	
-	public static void findFixVersionsOpenVersionsIndex(String pathFileWithFixVersionsOpenVersions) throws  IOException, ParseException, SQLException {
+	public void findFixVersionsOpenVersionsIndex(String pathFileWithFixVersionsOpenVersions) throws  IOException, ParseException, SQLException {
 		
 		String lineFile;
 		String[] split;
@@ -220,7 +219,7 @@ public class ReleasesZK {
 		   
 	}//fine metodo
 	
-	public static int getIndexVersionFromName(String nameVersion, String[] allVersions) throws IOException {
+	public static int getIndexVersionFromName(String nameVersion, String[] allVersions)  {
 
 		int i = 0;
 		
@@ -237,7 +236,7 @@ public class ReleasesZK {
 		return -1;
 	}//fine metodo
 	
-	public static int getIndexVersionFromDate(String dateVersion, String[] allDateVersions) throws IOException {
+	public static int getIndexVersionFromDate(String dateVersion, String[] allDateVersions){
 
 		int i = 0;
 		
@@ -254,19 +253,6 @@ public class ReleasesZK {
 		return -1;
 	}//fine metodo
 	
-	public static String[] getRidOfEmptyString(String[] array) {
-		
-		int i = 0;
-		int lungArray = array.length;
-				
-		for (i = 0; i < lungArray; i++) {
-			if( array[i].isEmpty() ) {
-				break;
-			}			
-		} 
-				
-		return Arrays.copyOf(array,i);
-		
-	}//fine metodo
+	
 	
 }

@@ -32,13 +32,14 @@ public class ClassToExecuteZK {
 			
 		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", linkage);
 		
+		ReleasesZK release = new ReleasesZK();
 		String pathFileTicketsWithAffectedVersions = HelpZK.getMyProperty("pathFileTicketsWithAffectedVersions");
 		String pathTicketsIDwithAffectedVersionAndIDversionBK = HelpZK.getMyProperty("pathTicketsIDwithAffectedVersionAndIDversionBK");
-		ReleasesZK.findAffectedVersionsIndex(pathFileTicketsWithAffectedVersions);
-        ReleasesZK.findInjectedVersions(pathTicketsIDwithAffectedVersionAndIDversionBK);
+		release.findAffectedVersionsIndex(pathFileTicketsWithAffectedVersions);
+		release.findInjectedVersions(pathTicketsIDwithAffectedVersionAndIDversionBK);
 		
         String pathTicketsBugWithFVOVdatesBK = HelpZK.getMyProperty("pathTicketsBugWithFVOVdates");
-		ReleasesZK.findFixVersionsOpenVersionsIndex(pathTicketsBugWithFVOVdatesBK);
+        release.findFixVersionsOpenVersionsIndex(pathTicketsBugWithFVOVdatesBK);
 		
 		ProportionZK proportion = new ProportionZK();		
 		proportion.calcolaProportionTicketsWithIV();
