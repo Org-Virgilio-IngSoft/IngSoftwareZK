@@ -15,22 +15,22 @@ import java.util.Properties;
  * @author Virgilio
  *
  */
-public class HelpZK {
+public class  HelpZK {
+ 
 	
 	public static String getMyProperty(String propertyName) throws IOException {
 		String config="configZK";
 		
 		try(FileReader fr = new FileReader(config)){
 			Properties property = new Properties();
-			property.load(fr);
+			property.load(fr); 
 			
 			return property.getProperty(propertyName);
 		}//try
 		  	
 	}//fine metodo
-	
-	
-	 //metodo per gestire la parte numerica variabile di un perticolare ticket bug
+
+    //metodo per gestire la parte numerica variabile di un perticolare ticket bug
     public static String projectStringTicket(String str) {
 		String id; 
 		int lungStr;
@@ -67,22 +67,28 @@ public class HelpZK {
 		return projectName+id.substring(0, i);
 					
 	}//fine metodo
-	
-	
+		
+    
   //metodo per ottere la data subito precedente rispetto ad una data di riferimento	
     public static int dateBeforeDate(String myDate, String[] dates) throws ParseException {
 		
 		int lung; 
-		var i=0;
+		int i=1;
 		
 		lung=dates.length;
 		
-		var sdf = new SimpleDateFormat("yyyy-MM-dd");	
-		var inputDate=sdf.parse(myDate);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
+		Date inputDate=sdf.parse(myDate);
 		Date date;
 		
+		//Date minDate= sdf.parse( dates[1] );
+		Date maxDate= sdf.parse( dates[lung-1] );
 		
-		for( i=0;i<lung;i++) {
+		if(inputDate.after(maxDate)) {
+		return lung-1;	
+		}
+		
+		for( i=1;i<lung;i++) {
 			date=sdf.parse( dates[i] );
 			
 			if(inputDate.after(date)) {
@@ -94,36 +100,19 @@ public class HelpZK {
 			}
 		}//for
 					
-		if(i==0){
-		  i=0;
+		if(i==1){
+		  i=1;
 		  return i;
 		}
 		
-		return i-1;
+		return i;
 	}//fine metodo
 
-    
-    public int findMin(int[] numbers) {
-		int min=numbers[0];
-		int temp;
-		int i=0;
-		
-		for( i=1;i<numbers.length;i++) {
-			temp=numbers[i];
-			if(temp<min) {
-				min=temp;
-			}		
-		}
-		
-		return min;
-    }//fine metodo	
-    
-    
-    public static String[] getRidOfEmptyString(String[] array) {
+public static String[] getRidOfEmptyString(String[] array) {
 		
 		int i = 0;
-		int lungArray = array.length;
-				
+		int lungArray = array.length;		
+		
 		for (i = 0; i < lungArray; i++) {
 			if( array[i].isEmpty() ) {
 				break;
@@ -133,10 +122,9 @@ public class HelpZK {
 		return Arrays.copyOf(array,i);
 		
 	}//fine metodo
-    
-     private HelpZK() {
+        
+	private HelpZK() {
 		
 	}
-    
 	
 }

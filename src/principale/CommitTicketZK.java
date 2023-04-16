@@ -18,7 +18,7 @@ import helper.HelpZK;
  */
 public class CommitTicketZK {
 
-	public void createPairCommitTicket(String pathFileLogGit) throws IOException, SQLException {
+	public void createTripleCommitTicketDate(String pathFileLogGit) throws IOException, SQLException {
 		var commit="";
 		var date="";
 		var ticket="";
@@ -43,7 +43,7 @@ public class CommitTicketZK {
 				}
 				
 				if(lineFile.startsWith("Date") ) {
-					date=lineFile.substring(8,18);
+					date=lineFile.substring(8);
 					
 				}
 				

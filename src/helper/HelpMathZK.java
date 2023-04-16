@@ -62,5 +62,35 @@ public class HelpMathZK {
         return total / numbers.size();
     }//fine metodo
     
-	
+  //restituise il primo numero > -1 nella list
+    public static int numberBiggerThanMinusOne(List<Integer> orderedlist) {
+		int i=0;
+		int lung = orderedlist.size();
+		int max=0;
+		
+		if(orderedlist.get(lung-1)==-1 ) {
+			return -1;
+		}
+		
+		if(lung==1) {
+			return orderedlist.get(0);
+		}
+		
+		max = Math.max(orderedlist.get(0), orderedlist.get(1) ) ;
+		if(max > 0 ) {
+			return orderedlist.get(0);
+		}
+		
+		for ( i = 0; i < lung; i++) {
+			max = Math.max(orderedlist.get(i), orderedlist.get(i+1) );
+			if( max > 0) {
+				break;
+			}
+			
+		}//for
+		return max;
+			
+		
+		
+    }//fine metodo
 }

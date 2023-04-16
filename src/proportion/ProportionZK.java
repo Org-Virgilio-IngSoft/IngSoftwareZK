@@ -39,7 +39,7 @@ public class ProportionZK {
 		  
 	      String queryTicketsWITHinjectedVersion="SELECT * "
 	    		     +" FROM \"Ticket_FV_OV_P_IV_ZK\"  AS FV_OV_P_IV "
-	      		     + "JOIN \"TicketWithInjectedVersionZK\"  AS tickWithIV \") "
+	      		     + "JOIN \"TicketWithInjectedVersionZK\"  AS tickWithIV  "
 	      		     + "ON FV_OV_P_IV.\"TicketBugID\"  =  tickWithIV.\"TicketBugID\"   "
 	      		     + "WHERE  \"FV\" > \"OV\"  ";
 			
@@ -64,8 +64,8 @@ public class ProportionZK {
 	      
 	      //Execute sql query
 	    
-	      String query="UPDATE \"TicketWithInjectedVersionZK\""
-	      		     + "SET   ( \"P\" = ? ) "+
+	      String query="UPDATE \"TicketWithInjectedVersionZK\"   "
+	      		     + "SET    \"P\" = ?  "+
 					   "WHERE \"TicketBugID\"=?";
 			  try(PreparedStatement statUpdate=con.prepareStatement(query) ){
 	    	
@@ -79,8 +79,8 @@ public class ProportionZK {
 		  }//try interno
 		  
 			  
-		String query2="UPDATE \"Ticket_FV_OV_P_IV_ZK\""
-			      		 + "SET   ( \"P\" = ? ) "+
+		String query2="UPDATE \"Ticket_FV_OV_P_IV_ZK\"  "
+			      		 + "SET    \"P\" = ?  "+
 						   "WHERE \"TicketBugID\"   =?";
 			 try(PreparedStatement statUpdate=con.prepareStatement(query2) ){
 			    	
@@ -107,10 +107,10 @@ public class ProportionZK {
 	      con =DBaseZK.connectToDBtickectBugZookeeper();
 		  
 	      String queryP=" SELECT  *  "   
-  				+ "FROM \"TicketWithInjectedVersionBK\"    "     			  				
-  				+ "WHERE \"P\" IS NOT NULL  ";
+  				+ "FROM \"TicketWithInjectedVersionZK\"    "     			  				
+  				+ "WHERE \"P\" >= 1  ";
   				
-	      try(var stat=con.prepareStatement(queryP) ){
+	      try(PreparedStatement stat=con.prepareStatement(queryP) ){
 			  resultP=stat.executeQuery();
 						  
 	          while( resultP.next() ) {
@@ -174,7 +174,7 @@ public class ProportionZK {
 	      
 	      //Execute query update sql
 	      String queryUpdate="UPDATE \"Ticket_FV_OV_P_IV_ZK\"  "
-	      		     + " SET ( \"P\" = ? , \"IV\"= ? , \"DateInjectedVersion\"= ? )   "+
+	      		     + " SET  \"P\" = ? , \"IV\"= ? , \"DateInjectedVersion\"= ?    "+
 					   " WHERE  \"TicketBugID\"  =  ?";
 			  try(PreparedStatement statUpdate=con.prepareStatement(queryUpdate) ){
 	    	

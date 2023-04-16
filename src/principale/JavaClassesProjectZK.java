@@ -18,7 +18,7 @@ import helper.HelpInfoProjectZK;
 public class JavaClassesProjectZK { 
 
 	//metodo per associare una versione ad una classe java
-		public void createVersionJavaClassPairs(String fileLogGit,String projectInfo) throws IOException, ParseException, SQLException, InterruptedException{
+		public void createPairsVersionJavaClass(String fileLogGit,String projectInfo) throws IOException, ParseException, SQLException, InterruptedException{
 						 
 			String line;		 	
 			int version;
@@ -53,20 +53,20 @@ public class JavaClassesProjectZK {
 					 
 					 
 					 if(line.startsWith("Date") ) {
-						dataCommit=line.substring(8,18);					
+						dataCommit=line.substring(8);					
 					 }
 					
 				   				
-					if( line.contains("ZOOKEEPER-") ) {	
+					if( line.startsWith("    ZOOKEEPER-") ||  line.startsWith("    [ZOOKEEPER-") ) {	
 										  
 					    nameFiles=searchAndGetFileNames(commit);
 					    indexDataJavaClassVersion=HelpZK.dateBeforeDate(dataCommit, datesVersions);					
 						version=versions[indexDataJavaClassVersion];
 						
 						
-					    for(var i=0;i<nameFiles.size();i++) {
+					    for(int i=0;i<nameFiles.size();i++) {
 									
-						 queryInsert="INSERT INTO \"ListJavaClassesBK\" ( \"NameClass\" , \"Commit\" , \"DateCommit\" , \"Version\")  " + 
+						 queryInsert="INSERT INTO \"ListJavaClassesZK\" ( \"NameClass\" , \"Commit\" , \"DateCommit\" , \"Version\")  " + 
 								"VALUES ( ? , ?, ? ,?) ";
 								
 						
@@ -92,7 +92,7 @@ public class JavaClassesProjectZK {
 		
       public List<String> searchAndGetFileNames(String commit) throws IOException, InterruptedException {
 			List<String> commandResult;
-			var sizeResult=0;
+			int sizeResult=0;
 			
 			List<String> nameFiles=new ArrayList<>();
 			
@@ -113,7 +113,7 @@ public class JavaClassesProjectZK {
 			   buffSplit=line.split("\t");	
 		       if( (buffSplit.length) ==3 ) {
 		    	   
-		    	   var file=buffSplit[2];
+		    	   String file=buffSplit[2];
 			       nameFiles.add(file);	       	    	       	      
 			   } 
 		       

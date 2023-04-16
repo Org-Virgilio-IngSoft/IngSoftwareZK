@@ -37,7 +37,7 @@ public class AutoriZK {
       			}
       				
       			if(lineFile.startsWith("Date") ) {
-      				date=lineFile.substring(8,18);
+      				date=lineFile.substring(8);
       				count=count+1;
       			}
       				

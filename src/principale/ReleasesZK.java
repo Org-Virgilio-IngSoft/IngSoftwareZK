@@ -19,6 +19,7 @@ import java.util.List;
 import database.DBaseZK;
 import helper.HelpZK;
 import helper.HelpInfoProjectZK;
+import helper.HelpMathZK;
 
 
 /**
@@ -27,7 +28,7 @@ import helper.HelpInfoProjectZK;
  */
 public class ReleasesZK {
 
-	private final String  pathInfoFileProject="pathInfoFileProject";
+	private static final String INFOFILEPROJECT="pathInfoFileProject";
 		
 	public void findAffectedVersionsIndex(String pathFileWithKnownAffectedVersions) throws  IOException {
 		
@@ -39,8 +40,8 @@ public class ReleasesZK {
 		
         String[] namesOfAllVersions;
 		
-		String pathFileInfoProject= HelpZK.getMyProperty(pathInfoFileProject);
-		String pathAffectedVersionAndIDversion = HelpZK.getMyProperty("pathTicketsIDwithAffectedVersionAndIDversionBK");
+		String pathFileInfoProject= HelpZK.getMyProperty(INFOFILEPROJECT);
+		String pathAffectedVersionAndIDversion = HelpZK.getMyProperty("pathTicketsIDwithAffectedVersionAndIDversionZK");
 		
 		namesOfAllVersions=HelpInfoProjectZK.getNamesOfVersions(pathFileInfoProject);		
 
@@ -90,7 +91,7 @@ public class ReleasesZK {
         Connection con;		       
         con =DBaseZK.connectToDBtickectBugZookeeper();
         
-        String pathFileProject = HelpZK.getMyProperty(pathInfoFileProject);
+        String pathFileProject = HelpZK.getMyProperty(INFOFILEPROJECT);
         String[] datesAllVersions = HelpInfoProjectZK.getDatesOfVersions(pathFileProject);
         
         
@@ -111,18 +112,24 @@ public class ReleasesZK {
 					i=i-2;
 				  }
 	              
+	             //System.out.println(split[0]);
+	              /*if(split[0].equals("ZOOKEEPER-604")) {
+	            	  int k =0;
+	            	  k=k+1;
+	              }*/
 	              Collections.sort(temporary);
-	              if(temporary.get(0)==-1) {  //-1 means this version is not present in the file project .csv
-	            	 injectedVersions.add(temporary.get(1) );
-	            	
-	              }
-	              else {
-	            	 injectedVersions.add(temporary.get(0) ); 
-	            	 
-	              }
+	              int iv = HelpMathZK.numberBiggerThanMinusOne(temporary);
 	              
-	              String bugID = ticketsBugID.get(0);
-	              int iv = injectedVersions.get(0);
+	              if(iv==-1) {
+	            	  temporary.clear();
+		              injectedVersions.clear();
+		              ticketsBugID.clear();
+	            	  continue;
+	              }
+	              injectedVersions.add( iv ); 
+	              	             	              
+	              
+	              String bugID = ticketsBugID.get(0);    
 	              String dateIV=datesAllVersions[iv];
 	              
 	              listSQLbugID.add(bugID);
@@ -171,7 +178,7 @@ public class ReleasesZK {
 	     List<String> listSQLdatesopenV= new ArrayList<>();
 	     List<String> ticketsBugID= new ArrayList<>();  
 			     
-		String pathFileInfoProject= HelpZK.getMyProperty(pathInfoFileProject);				
+		String pathFileInfoProject= HelpZK.getMyProperty(INFOFILEPROJECT);				
 	    datesAllVersions = HelpInfoProjectZK.getDatesOfVersions(pathFileInfoProject);		
 		
 	    Connection con;		       
@@ -254,5 +261,6 @@ public class ReleasesZK {
 	}//fine metodo
 	
 	
+
 	
 }
