@@ -28,10 +28,11 @@ public class ClassToExecuteZK {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws IOException, ParseException, SQLException, InterruptedException {
-		Logger logger=Logger.getLogger("MyLogger");	
+		Logger logger=Logger.getLogger("MyLogger");
+		String pathLogNOsnoring = HelpZK.getMyProperty("pathLogFileNOsnoring");
 		 
-		String pathLogBK = HelpZK.getMyProperty("pathLogFileLinkage");			
-		double linkage = LinkageZK.calculateLinkageZK(pathLogBK);
+		String pathLogLinkageZK = HelpZK.getMyProperty("pathLogFileLinkage");			
+		double linkage = LinkageZK.calculateLinkageZK(pathLogLinkageZK);
 			
 		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", linkage);
 		
@@ -47,21 +48,19 @@ public class ClassToExecuteZK {
 		ProportionZK proportion = new ProportionZK();		
 		proportion.calcolaProportionTicketsWithIV();
 		double pMedio = proportion.calculatePmedio();
-		System.out.println("pMedio "+pMedio);
+		logger.log(Level.INFO ,"pMedio : {0}", pMedio);	
 		proportion.ristimaDiNuovoInjectedVersions(pMedio);
 		
-		AutoriZK autori = new AutoriZK();
-		String pathLog = HelpZK.getMyProperty("pathLogFileNOsnoring");
-		autori.getNameAutorCommitDateCommitfromGitLog(pathLog);
+		AutoriZK autori = new AutoriZK();		
+		autori.getNameAutorCommitDateCommitfromGitLog(pathLogNOsnoring);
 		
-		//String pathLog = HelpZK.getMyProperty("pathLogFileNOsnoring");
+		
 		CommitTicketZK commit = new CommitTicketZK();
-		commit.createTripleCommitTicketDate(pathLog);
+		commit.createTripleCommitTicketDate(pathLogNOsnoring);
 		
-		JavaClassesProjectZK javaClasses = new JavaClassesProjectZK();
-		//String pathLog = HelpZK.getMyProperty("pathLogFileNOsnoring");
+		JavaClassesProjectZK javaClasses = new JavaClassesProjectZK();	
 		String pathProjFile = HelpZK.getMyProperty("pathInfoFileProject");
-		javaClasses.createPairsVersionJavaClass(pathLog, pathProjFile);
+		javaClasses.createPairsVersionJavaClass(pathLogNOsnoring, pathProjFile);
 				
 		
 		NAUTHmetricZK auth= new NAUTHmetricZK();

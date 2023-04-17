@@ -1,7 +1,7 @@
 /**
  * 
  */
-package myWeka;
+package weka;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,10 +35,10 @@ public class CsvToArffZK {
 				              numeric,//MaxChgSetSize
 				              numeric,//AvgChgSetSize
 				              "{true,false}"}; // buggy
-		int lung_labels=0;
+		int lungLabels=0;
 		Logger logger=Logger.getLogger("MyLogger");	
 		
-		String dataset_name="@RELATION my_dataset";
+		String datasetName="@RELATION my_dataset";
 		
 		File myFile = new File(pathToArff);
 	      if (myFile.createNewFile()) {
@@ -54,15 +54,15 @@ public class CsvToArffZK {
 				                                                                         ){
 			
 		
-			arffWriter.write(dataset_name+"\n");
+			arffWriter.write(datasetName+"\n");
 			arffWriter.write("\n");
 			arffWriter.flush();
 			
 			row = csvReader.readLine();
 			labels = row.split(",");
-			lung_labels=labels.length;
+			lungLabels=labels.length;
 			
-			for (int i = 0; i < lung_labels; i++) {
+			for (int i = 0; i < lungLabels; i++) {
 				arffWriter.write("@ATTRIBUTE "+labels[i]+" "+typeLabels[i]+"\n");
 				arffWriter.flush();
 			}//for						
@@ -77,17 +77,12 @@ public class CsvToArffZK {
 			}//while
 			
 		}//try
+												
 		
+	}//fine method
+	
+	private CsvToArffZK() {
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	}//method
+	}
 	
 }
