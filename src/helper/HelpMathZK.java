@@ -11,12 +11,13 @@ import java.util.List;
  */
 public class HelpMathZK {
 
-	public int findMax(int[] numbers) {
-		int max=numbers[0];
+	
+	public static int findMax(List<Integer> numbers) {
+		int max=numbers.get(0);
 		int temp;
 		int i=0;
-		for( i=1;i<numbers.length;i++) {
-			temp=numbers[i];
+		for( i=1;i<numbers.size();i++) {
+			temp=numbers.get(i);
 			if(temp>max) {
 				max=temp;
 			}		
@@ -25,33 +26,20 @@ public class HelpMathZK {
 		return max;
 	}//fine metodo
 	
-	public static int findMin(int[] numbers) {
-		int min=numbers[0];
-		int temp;
-		int i=0;
-		
-		for( i=1;i<numbers.length;i++) {
-			temp=numbers[i];
-			if(temp<min) {
-				min=temp;
-			}		
-		}
-		
-		return min;
-    }//fine metodo	
     
-    public static double findMean(double[] numbers) {
+   
+    public static double findMean(List<Double> numbers) {
     	double total = 0;
     	
     	 
-    	for(int i=0; i<numbers.length; i++){
-         	total = total + numbers[i];        
+    	for(int i=0; i<numbers.size(); i++){
+         	total = total + numbers.get(i);        
     	}
 
-        return total / numbers.length;
+        return total / numbers.size();
     }//fine metodo
-
-    public static double findMean(List<Double> numbers) {
+    
+    public static double findAVG(List<Integer> numbers) {
     	double total = 0;
     	
     	 
