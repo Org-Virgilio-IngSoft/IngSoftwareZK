@@ -9,6 +9,8 @@ pathFileTicketsWithAffectedVersions=D:\\Libri\\Universita\\ProgettoFalessi\\Zook
 pathTicketsIDwithAffectedVersionAndIDversionZK=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsIDwithAffectedVersionAndIDversionZK.txt
 pathTicketsBugWithFVOVdates=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsBugWithFVOVdates.txt
 
+pathArffFolder=D:\Libri\Universita\ProgettoFalessi\ZK\
+
 maxNumberOfversions=23
 
 dateNOsnoring=2016-02-22

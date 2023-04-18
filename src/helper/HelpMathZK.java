@@ -50,6 +50,17 @@ public class HelpMathZK {
         return total / numbers.size();
     }//fine metodo
     
+    public static int findSum(List<Integer> numbers) {
+    	int total = 0;
+    	
+    	 
+    	for(int i=0; i<numbers.size(); i++){
+         	total = total + numbers.get(i);        
+    	}
+
+        return total;
+    }//fine metodo
+    
   //restituise il primo numero > -1 nella list
     public static int numberBiggerThanMinusOne(List<Integer> orderedlist) {
 		int i=0;
@@ -76,9 +87,13 @@ public class HelpMathZK {
 			}
 			
 		}//for
-		return max;
-			
-		
+		return max;					
 		
     }//fine metodo
+    
+    
+     private HelpMathZK() {
+    	
+    }
+    
 }

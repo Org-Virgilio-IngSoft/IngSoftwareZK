@@ -112,11 +112,7 @@ public class ReleasesZK {
 					i=i-2;
 				  }
 	              
-	             //System.out.println(split[0]);
-	              /*if(split[0].equals("ZOOKEEPER-604")) {
-	            	  int k =0;
-	            	  k=k+1;
-	              }*/
+	            
 	              Collections.sort(temporary);
 	              int iv = HelpMathZK.numberBiggerThanMinusOne(temporary);
 	              

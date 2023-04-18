@@ -17,6 +17,7 @@ import org.jfree.ui.RefineryUtilities;
  * @author Virgilio
  *
  */
+@SuppressWarnings("serial")
 public class DrawGraphPvaluesZK extends ApplicationFrame {
 	public static void main(String[] args)  {
 		

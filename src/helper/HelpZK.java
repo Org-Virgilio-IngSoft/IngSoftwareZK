@@ -81,7 +81,7 @@ public class  HelpZK {
 		Date inputDate=sdf.parse(myDate);
 		Date date;
 		
-		//Date minDate= sdf.parse( dates[1] );
+		
 		Date maxDate= sdf.parse( dates[lung-1] );
 		
 		if(inputDate.after(maxDate)) {
