@@ -10,6 +10,11 @@ pathTicketsIDwithAffectedVersionAndIDversionZK=D:\\Libri\\Universita\\ProgettoFa
 pathTicketsBugWithFVOVdates=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsBugWithFVOVdates.txt
 
 pathArffFolder=D:\Libri\Universita\ProgettoFalessi\ZK\
+pathDatasetCSV=D:\\Libri\\Universita\\ProgettoFalessi\\ZK\\ZOOKEEPERVersionInfo.csv
+pathDatasetARFF=D:\\Libri\\Universita\\ProgettoFalessi\\ZK\\ZOOKEEPERVersionInfo.arff
+
+numberTrainingSetsToCreate=4
+numberTestSetsToCreate=4
 
 maxNumberOfversions=23
 

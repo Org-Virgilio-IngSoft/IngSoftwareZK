@@ -13,6 +13,9 @@ import helper.HelpZK;
 import metrics.LOCADDEDmetricZK;
 import metrics.NAUTHmetricZK;
 import proportion.ProportionZK;
+import weka.ConvertCsvToArffZK;
+import weka.CreateArffFileZK;
+import weka.WalkForwardZK;
 
 /**
  * @author Virgilio
@@ -68,6 +71,15 @@ public class ClassToExecuteZK {
 		
 		LOCADDEDmetricZK loc = new LOCADDEDmetricZK();
 		loc.calculateLocAdded();
+		
+		String pathDatasetCSV = HelpZK.getMyProperty("pathDatasetCSV");
+		String pathDatasetARFF = HelpZK.getMyProperty("pathDatasetARFF");
+		CreateArffFileZK.createArffFile("ZOOKEEPERVersionInfo");
+		ConvertCsvToArffZK.convertMyDataset(pathDatasetCSV, pathDatasetARFF);
+				
+		WalkForwardZK walkForward = new WalkForwardZK();		
+		walkForward.walkForwardTraining(pathDatasetARFF);
+		walkForward.walkForwardTest(pathDatasetARFF);
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
 			

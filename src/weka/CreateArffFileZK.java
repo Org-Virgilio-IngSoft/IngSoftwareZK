@@ -16,7 +16,7 @@ import helper.HelpZK;
  */
 public class CreateArffFileZK {
 
-	public static void createFile(String nameArffFile) throws IOException {
+	public static void createArffFile(String nameArffFile) throws IOException {
 		
 		Logger logger=Logger.getLogger("MyLogger");	
 		
@@ -28,10 +28,12 @@ public class CreateArffFileZK {
   	         logger.log(Level.INFO ,"File creato ok: {0}", myFile.getName());        
           } else {
   	         logger.log(Level.INFO ,"File già esiste: {0}", myFile.getName());	       
-            return;
+            
           }
     
   }//fine metodo
+	
+
 	
 	private CreateArffFileZK() {
 		

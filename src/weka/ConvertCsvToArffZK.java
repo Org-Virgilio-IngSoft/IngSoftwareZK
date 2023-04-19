@@ -5,21 +5,19 @@ package weka;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Virgilio
  *
  */
-public class CsvToArffZK {
+public class ConvertCsvToArffZK {
 
-	public static void convert(String pathCsvToConvert,String pathToArff) throws IOException {
-		String row="";
+	public static void convertMyDataset(String pathToCsv,String pathToArff) throws IOException {
+		
+		String line="";	   
 		String[] labels;
 		String numeric = "NUMERIC";
 		String[] typeLabels={numeric, //version
@@ -36,20 +34,11 @@ public class CsvToArffZK {
 				              numeric,//AvgChgSetSize
 				              "{true,false}"}; // buggy
 		int lungLabels=0;
-		Logger logger=Logger.getLogger("MyLogger");	
 		
 		String datasetName="@RELATION my_dataset";
 		
-		File myFile = new File(pathToArff);
-	      if (myFile.createNewFile()) {
-	    	logger.log(Level.INFO ,"File creato ok: {0}", myFile.getName());        
-	      } else {
-	    	logger.log(Level.INFO ,"File già esiste: {0}", myFile.getName());	       
-	        return;
-	      }
-	     
 	      
-		try(BufferedReader csvReader = new BufferedReader(new FileReader(pathCsvToConvert));
+		try(BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
 		    BufferedWriter arffWriter = new BufferedWriter(new FileWriter(pathToArff))
 				                                                                         ){
 			
@@ -58,8 +47,8 @@ public class CsvToArffZK {
 			arffWriter.write("\n");
 			arffWriter.flush();
 			
-			row = csvReader.readLine();
-			labels = row.split(",");
+			line = csvReader.readLine();
+			labels = line.split(",");
 			lungLabels=labels.length;
 			
 			for (int i = 0; i < lungLabels; i++) {
@@ -70,18 +59,22 @@ public class CsvToArffZK {
 			
 			arffWriter.write("@DATA\n");
 			arffWriter.flush();
-			while ((row = csvReader.readLine()) != null) {
-				
-				arffWriter.write(row+"\n");
-				arffWriter.flush();
-			}//while
+			
+			 while ((line = csvReader.readLine()) != null) {
+					
+				  arffWriter.write(line+"\n");
+				  arffWriter.flush();
+			  }//while
 			
 		}//try
-												
-		
+	    				      							  		 
+									
 	}//fine method
 	
-	private CsvToArffZK() {
+
+	
+	
+     private ConvertCsvToArffZK() {
 		
 	}
 	
