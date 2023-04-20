@@ -48,7 +48,7 @@ public class NAUTHmetricZK {
 		Connection connUpdate=DBaseZK.connectToDBtickectBugZookeeper();
 		
 		String queryJavaClasses=" SELECT DISTINCT \"NameClass\", \"Version\" "
-				+ "FROM \"ListJavaClassesBK\"   "
+				+ "FROM \"ListJavaClassesZK\"   "
 				+ "WHERE \"NameClass\" LIKE '%.java' AND \"Version\"= ? ";
 				
 		
@@ -63,8 +63,8 @@ public class NAUTHmetricZK {
         	 
         	  
         	 String queryJavaClasses2=" SELECT  *  "   
-     				+ "FROM \"ListJavaClassesBK\"  AS jc  "
-        			+ "JOIN \"AutoriBK\"  AS auth  "
+     				+ "FROM \"ListJavaClassesZK\"  AS jc  "
+        			+ "JOIN \"AutoriZK\"  AS auth  "
      				+ "ON  jc.\"Commit\"  =  auth.\"Commit\"    "
      				+ "WHERE jc.\"NameClass\" = ?  ";
      				
@@ -85,7 +85,7 @@ public class NAUTHmetricZK {
 			   
 			   nAuth=listAuthors.size();
 			   
-			   String queryUpdate=" UPDATE \"DataSetBK\"  "
+			   String queryUpdate=" UPDATE \"DataSetZK\"  "
     		         + "SET \"NAuth\" = ?  "
   		             + "WHERE   \"Version\" = ? AND \"NameClass\" = ? ";
   		         

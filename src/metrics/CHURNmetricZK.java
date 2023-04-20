@@ -38,18 +38,11 @@ public void calculateCHURNforEveryVersion() throws IOException, SQLException, In
 public void calculateCHURNforSpecificVersion(int version) throws IOException, InterruptedException, SQLException {
 		
 		List<String> listaFile=new ArrayList<>();
-		String[] bufSplit;		
-		String locAdded="/";
-		String locDeleted="/";
-		
 		int churn=0;
 		int churnMax=0;
 		double churnAvg=0;
 		List<Integer> listChurnValues=new ArrayList<>();
 	
-		boolean fileTrovato=false;
-		boolean buffSplitLenghtOK=false; 
-		
 		CommandGitShowZK comGitShow= new  CommandGitShowZK();
 				
 		Connection conn=DBaseZK.connectToDBtickectBugZookeeper();
@@ -59,7 +52,7 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
 		ResultSet rsChurn;
 		
 		String queryClasses="SELECT DISTINCT \"NameClass\", \"Version\"  "
-				+"FROM \"ListJavaClassesBK\" "
+				+"FROM \"ListJavaClassesZK\" "
 			    +"WHERE \"NameClass\" LIKE '%.java'  AND \"Version\"= ? ";
 					
 		try(PreparedStatement stat=conn.prepareStatement(queryClasses) ){
@@ -71,7 +64,7 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
         	
 			String fileNameJava=rsJavaClasses.getString("NameClass");
 			
-			String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
+			String query2 = "SELECT * FROM \"ListJavaClassesZK\"  "
 					+"WHERE  \"NameClass\" =? AND \"Version\"= ? ";
 			
 			try(PreparedStatement stat2=conn2.prepareStatement(query2) ){
@@ -83,49 +76,18 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
 																
 		          String commit = rsJavaClasses.getString("Commit");
 		    
-		          listaFile=comGitShow.commandGitShow(commit);		    
-			      int sizeList=listaFile.size();
+		          listaFile=comGitShow.commandGitShow(commit);		    			      
 			
-			
-			      for(int j=(sizeList-1);j>=0;j--) {
-				
-				
-				  if(listaFile.get(j).contains(fileNameJava)) {
-					fileTrovato = true;
-				  }
-				
-				  bufSplit = listaFile.get(j).split("\t");
-				
-				  if( (bufSplit.length) == 3 ) {
-				    buffSplitLenghtOK = true;
-				  }
-				  if(  fileTrovato && buffSplitLenghtOK ) {
-				     bufSplit = listaFile.get(j).split("\t");
-										
-					 locAdded=bufSplit[0];
-					 locDeleted=bufSplit[1];
-										
-					 locAdded=specialCaseChurnValuselocAdded(locAdded);
-					 locDeleted=specialCaseChurnValuselocDeleted(locDeleted);
-					
-					 churn=Integer.parseInt(locAdded)-Integer.parseInt(locDeleted);
-					
-					 listChurnValues.add(churn);
-										
-					 fileTrovato=false;
-					 buffSplitLenghtOK=false;
-					 break;
-				 }//if
-				
-			 }//for
+			      handleListFilesGitShow(listaFile, fileNameJava, listChurnValues);
+			     
           }//while interno
 				
 			churn=HelpMathZK.findSum(listChurnValues);
 	        churnAvg=HelpMathZK.findAVG(listChurnValues);
 		    churnMax=HelpMathZK.findMax(listChurnValues);	
 				
-			String queryUpdChurn="UPDATE \"DataSetBK\"  "
-	                   +"SET  \"Churn\"= ? , \"MaxChurn\"= ? , \"AvgChurn\"= ?	"                
+			String queryUpdChurn="UPDATE \"DataSetZK\"  "
+	                   +"SET  \"Churn\"= ? , \"MaxChurn\"= ? , \"AvgChurn\"= ? "                
 			           +"WHERE \"NameClass\"= ?  AND \"Version\"= ? ";
 			           		
 			
@@ -149,6 +111,48 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
 					 
 }//fine metodo 
 	
+public void handleListFilesGitShow(List<String> listaFile,String fileNameJava, List<Integer> listChurnValues) {
+	
+	  String[] bufSplit;		
+	  String locAdded="/";
+	  String locDeleted="/";
+	  boolean fileTrovato=false;
+	  boolean buffSplitLenghtOK=false;
+	
+	 int sizeList=listaFile.size();
+	 for(int j=(sizeList-1);j>=0;j--) {
+	
+	
+	  if(listaFile.get(j).contains(fileNameJava)) {
+		fileTrovato = true;
+	  }
+	
+	  bufSplit = listaFile.get(j).split("\t");
+	
+	  if( (bufSplit.length) == 3 ) {
+	    buffSplitLenghtOK = true;
+	  }
+	  if(  fileTrovato && buffSplitLenghtOK ) {
+	     bufSplit = listaFile.get(j).split("\t");
+							
+		 locAdded=bufSplit[0];
+		 locDeleted=bufSplit[1];
+							
+		 locAdded=specialCaseChurnValuselocAdded(locAdded);
+		 locDeleted=specialCaseChurnValuselocDeleted(locDeleted);
+		
+		 int churn=Integer.parseInt(locAdded)-Integer.parseInt(locDeleted);
+		
+		 listChurnValues.add(churn);
+							
+		 fileTrovato=false;
+		 buffSplitLenghtOK=false;
+		 break;
+	 }//if
+	
+   }//for
+	
+}//fine metodo
 
 	
 	//metodo che elimina il caso LocAdded = "-"  	

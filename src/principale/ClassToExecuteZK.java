@@ -59,8 +59,7 @@ public class ClassToExecuteZK {
 		
 		AutoriZK autori = new AutoriZK();		
 		autori.getNameAutorCommitDateCommitfromGitLog(pathLogNOsnoring);
-		
-		
+			
 		CommitTicketZK commit = new CommitTicketZK();
 		commit.createTripleCommitTicketDate(pathLogNOsnoring);
 		
@@ -69,11 +68,14 @@ public class ClassToExecuteZK {
 		javaClasses.createPairsVersionJavaClass(pathLogNOsnoring, pathProjFile);
 				
 		
+		DatasetJavaClassesAndVersionsZK dataset = new DatasetJavaClassesAndVersionsZK();
+		dataset.fillFirstTwoColumnDataset();
+		
 		NAUTHmetricZK auth= new NAUTHmetricZK();
 		auth.calculateNAUTHforEveryVersion();
 		
 		LOCADDEDmetricZK loc = new LOCADDEDmetricZK();
-		loc.calculateLOCADDEDforEveryVersion();;
+		loc.calculateLOCADDEDforEveryVersion();
 		
 		CHGSETSIZEmetricZK chg = new CHGSETSIZEmetricZK();
 		chg.calculateCHGSETSIZEforEveryVersion();
@@ -90,8 +92,7 @@ public class ClassToExecuteZK {
 		walkForward.walkForwardTraining(pathDatasetARFF);
 		walkForward.walkForwardTest(pathDatasetARFF);
 		
-		DatasetJavaClassesAndVersionsZK dataset = new DatasetJavaClassesAndVersionsZK();
-		dataset.fillFirstTwoColumnDataset();
+		
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
 			

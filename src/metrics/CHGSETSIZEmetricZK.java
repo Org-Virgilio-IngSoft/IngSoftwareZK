@@ -52,7 +52,7 @@ public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLExceptio
 		ResultSet rsCHGSETSIZE;
 		
 		String queryForClasses="SELECT DISTINCT \"NameClass\", \"Version\"  "
-				+"FROM \"ListJavaClassesBK\" "
+				+"FROM \"ListJavaClassesZK\" "
 			    +"WHERE \"NameClass\" LIKE '%.java' AND \"Version\"= ? ";
 		
 		
@@ -64,7 +64,7 @@ public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLExceptio
         	
 			String fileJavaName=rsJavaNames.getString("NameClass");
 		         
-			String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
+			String query2 = "SELECT * FROM \"ListJavaClassesZK\"  "
 					+ "WHERE  \"NameClass\" =? AND \"Version\"= ? ";
 					
 			
@@ -87,7 +87,7 @@ public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLExceptio
 				chgSetSizeAvg=HelpMathZK.findAVG(listChgSetSize);
 				chgSetSizeMax=HelpMathZK.findMax(listChgSetSize);
 			    
-				String queryUpd="UPDATE \"DataSetBK\"  "+
+				String queryUpd="UPDATE \"DataSetZK\"  "+
 			              "SET  \"ChgSetSize\"= ?, \"MaxChgSetSize\"= ? , \"AvgChgSetSize\" = ? "+
 					      "WHERE \"NameClass\" = ?  AND  \"Version\" = ? " ;
 					           		 		
