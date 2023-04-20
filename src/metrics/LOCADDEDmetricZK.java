@@ -116,7 +116,7 @@ public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException,
 	public void handleListFilesGitShow(List<String> listFiles,String fileJavaName, List<Integer> listLocAdded) {
 		
 		String[] bufferSplit;
-		String locAddedString="/";
+		String locAddedString;
 		boolean foundFile=false;
 		boolean buffSplitHasRightLenght=false; 
 		
@@ -144,9 +144,7 @@ public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException,
 				 int locAdded=Integer.parseInt(locAddedString);
 				
 				 listLocAdded.add(locAdded);
-				
-				 foundFile=false;
-				 buffSplitHasRightLenght=false;
+								 
 				 break;
 			  }//if
 			

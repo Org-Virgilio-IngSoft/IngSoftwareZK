@@ -114,8 +114,8 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
 public void handleListFilesGitShow(List<String> listaFile,String fileNameJava, List<Integer> listChurnValues) {
 	
 	  String[] bufSplit;		
-	  String locAdded="/";
-	  String locDeleted="/";
+	  String locAdded;
+	  String locDeleted;
 	  boolean fileTrovato=false;
 	  boolean buffSplitLenghtOK=false;
 	
@@ -144,9 +144,7 @@ public void handleListFilesGitShow(List<String> listaFile,String fileNameJava, L
 		 int churn=Integer.parseInt(locAdded)-Integer.parseInt(locDeleted);
 		
 		 listChurnValues.add(churn);
-							
-		 fileTrovato=false;
-		 buffSplitLenghtOK=false;
+									
 		 break;
 	 }//if
 	
