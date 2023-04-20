@@ -13,6 +13,7 @@ import java.util.List;
 
 import commands.CommandGitShowZK;
 import database.DBaseZK;
+import helper.HelpZK;
 import helper.HelpMathZK;
 
 /**
@@ -21,7 +22,19 @@ import helper.HelpMathZK;
  */
 public class LOCADDEDmetricZK {
 
-	public void calculateLocAdded() throws SQLException, IOException, InterruptedException {
+public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException, InterruptedException {
+		
+		int i=0;
+		String maxNumberOfversions = HelpZK.getMyProperty("maxNumberOfversions"); 
+		int max = Integer.parseInt(maxNumberOfversions);
+		
+		for ( i = 1; i <= max ; i++) {
+			calculateLOCADDEDforSpecificVersion(i);
+		}
+				
+	}//fine metodo
+	
+	public void calculateLOCADDEDforSpecificVersion(int version) throws SQLException, IOException, InterruptedException {
 		
 		List<String> listFiles=new ArrayList<>();
 		String[] bufferSplit;
@@ -40,13 +53,16 @@ public class LOCADDEDmetricZK {
 				
 		Connection conn=DBaseZK.connectToDBtickectBugZookeeper();
 		Connection conn2=DBaseZK.connectToDBtickectBugZookeeper();
+		Connection connUpdate=DBaseZK.connectToDBtickectBugZookeeper();
 		ResultSet rsJavaNames;
 		ResultSet rsLocAdded;
 		
-		String queryForClasses="SELECT DISTINCT FROM \"ListJavaClassesZK\" "+
-				 " WHERE \"NameClass\" LIKE '%.java' ";
+		String queryForClasses="SELECT DISTINCT \"NameClass\", \"Version\"  "
+				+ "FROM \"ListJavaClassesBK\"  "
+			    + "WHERE \"NameClass\" LIKE '%.java' AND \"Version\"= ?   ";
 		
 		try(PreparedStatement stat=conn.prepareStatement(queryForClasses) ){
+			stat.setInt(1, version);
 			rsJavaNames=stat.executeQuery();
 		
 				
@@ -54,70 +70,76 @@ public class LOCADDEDmetricZK {
         	
 			String fileJavaName=rsJavaNames.getString("NameClass");
 		
-			String query2 = "SELECT * FROM \"ListJavaClassesZK\"  "
-					+ "WHERE  \"NameClass\" =? "
-					+ "ORDER BY \"Version\" ASC ";
+			String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
+					+ "WHERE  \"NameClass\" =? AND \"Version\"= ? ";
+					
 			
 			try(PreparedStatement stat2=conn2.prepareStatement(query2) ){
 				stat2.setString(1, fileJavaName);
+				stat2.setInt(2, version);
 				rsLocAdded=stat2.executeQuery();
 				
-				
-				String commit = rsLocAdded.getString("Commit");
+				while(rsLocAdded.next()) {
+    				   	  				    				   				   	  				     				   	  				    				   	  		  				
+			  	  String commit = rsLocAdded.getString("Commit");
 			    
-			    listFiles=cmdgitShow.commandGitShow(commit);		   
-				int size=listFiles.size();
+			      listFiles=cmdgitShow.commandGitShow(commit);		   
+				  int size=listFiles.size();
 				
-				for(int i=(size-1);i>=0;i--) {
+				  for(int i=(size-1);i>=0;i--) {
 					
-					if(listFiles.get(i).contains(fileJavaName) ) {
-						foundFile=true;
-					}
+					  if(listFiles.get(i).contains(fileJavaName) ) {
+						  foundFile=true;
+					  }
 					
-					bufferSplit=listFiles.get(i).split("\t");
-					
-					if((bufferSplit.length) ==3 ) {
+					  bufferSplit=listFiles.get(i).split("\t");
+					 
+					  if((bufferSplit.length) ==3 ) {
 						buffSplitHasRightLenght=true;
-					}
+					  }
 					
-					if(foundFile && buffSplitHasRightLenght) {
+					  if(foundFile && buffSplitHasRightLenght) {
 						
-						bufferSplit=listFiles.get(i).split("\t");
+						 bufferSplit=listFiles.get(i).split("\t");
+											
+						 locAddedString=bufferSplit[0];				
+						 locAddedString=specialCaseLOCaddedValue(locAddedString);
 						
+						 locAdded=Integer.parseInt(locAddedString);
 						
-						locAddedString=bufferSplit[0];				
-						locAddedString=specialCaseLOCaddedValue(locAddedString);
+						 listLocAdded.add(locAdded);
 						
-						locAdded=Integer.parseInt(locAddedString);
-						
-						listLocAdded.add(locAdded);
-						locAddedAvg=HelpMathZK.findAVG(listLocAdded);
-						locAddedMax=HelpMathZK.findMax(listLocAdded);
-						
-						
-						String queryUpd="UPDATE \"ListJavaClassesZK\"  "+
-				              "SET  \"LOCadded\"= ?, \"MaxLOCadded\"= ? , \"AvgLOCadded\" = ? "+
-						      "WHERE \"NameClass\" = ?  AND  \"Commit\" = ? " ;
-						           		 		
-						try(PreparedStatement statUpd=conn.prepareStatement(queryUpd)){
-							
-							statUpd.setInt(1, locAdded);
-							statUpd.setInt(2, locAddedMax);
-							statUpd.setDouble(3 , locAddedAvg);
-							statUpd.setString(4, fileJavaName);
-							statUpd.setString(5, commit);
-							statUpd.executeUpdate();
-						}
-						
-						foundFile=false;
-						buffSplitHasRightLenght=false;
-						break;
-					}//if
+						 foundFile=false;
+						 buffSplitHasRightLenght=false;
+						 break;
+					  }//if
 					
-				}//for
+				  }//for
 				
+			  }//while interno
 				
-			}//try interno
+			  locAdded=HelpMathZK.findSum(listLocAdded);
+			  locAddedAvg=HelpMathZK.findAVG(listLocAdded);
+			  locAddedMax=HelpMathZK.findMax(listLocAdded);
+				
+								
+			  String queryUpd="UPDATE \"DataSetBK\"  "+
+		              "SET  \"LOCadded\"= ?, \"MaxLOCadded\"= ? , \"AvgLOCadded\" = ? "+
+				      "WHERE \"NameClass\" = ?  AND  \"Version\" = ? " ;
+				           		 		
+			  try(PreparedStatement statUpd=connUpdate.prepareStatement(queryUpd)){
+					
+					statUpd.setInt(1, locAdded);
+					statUpd.setInt(2, locAddedMax);
+					statUpd.setDouble(3 , locAddedAvg);
+					statUpd.setString(4, fileJavaName);
+					statUpd.setInt(5, version);
+					statUpd.executeUpdate();
+				}//try interno
+			  
+			  listLocAdded.clear();	
+				
+			}//try medio
 			
 			
           }//while

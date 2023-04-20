@@ -9,7 +9,10 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dataset.DatasetJavaClassesAndVersionsZK;
 import helper.HelpZK;
+import metrics.CHGSETSIZEmetricZK;
+import metrics.CHURNmetricZK;
 import metrics.LOCADDEDmetricZK;
 import metrics.NAUTHmetricZK;
 import proportion.ProportionZK;
@@ -67,10 +70,16 @@ public class ClassToExecuteZK {
 				
 		
 		NAUTHmetricZK auth= new NAUTHmetricZK();
-		auth.caculateNAUTHforEveryVersion();
+		auth.calculateNAUTHforEveryVersion();
 		
 		LOCADDEDmetricZK loc = new LOCADDEDmetricZK();
-		loc.calculateLocAdded();
+		loc.calculateLOCADDEDforEveryVersion();;
+		
+		CHGSETSIZEmetricZK chg = new CHGSETSIZEmetricZK();
+		chg.calculateCHGSETSIZEforEveryVersion();
+		
+		CHURNmetricZK churn = new CHURNmetricZK();
+		churn.calculateCHURNforEveryVersion();
 		
 		String pathDatasetCSV = HelpZK.getMyProperty("pathDatasetCSV");
 		String pathDatasetARFF = HelpZK.getMyProperty("pathDatasetARFF");
@@ -80,6 +89,9 @@ public class ClassToExecuteZK {
 		WalkForwardZK walkForward = new WalkForwardZK();		
 		walkForward.walkForwardTraining(pathDatasetARFF);
 		walkForward.walkForwardTest(pathDatasetARFF);
+		
+		DatasetJavaClassesAndVersionsZK dataset = new DatasetJavaClassesAndVersionsZK();
+		dataset.fillFirstTwoColumnDataset();
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
 			

@@ -21,7 +21,7 @@ public class WalkForwardZK {
 	public void walkForwardTraining(String pathArffDataset) throws IOException {
         
 		String line="";		
-		String file_name="TrainingSet"; 
+		String fileName="TrainingSet"; 
 		String nameRelation="my_TrainingSet";
 		String ext=".arff";
 		String pathFolder = HelpZK.getMyProperty("pathArffFolder");
@@ -34,8 +34,8 @@ public class WalkForwardZK {
 		
     	int i=0;
     	for (i = 0; i <nFilesInt ; i++) {
-			CreateArffFileZK.createArffFile(file_name+Integer.toString(i+1) );
-			pathArffTrainingFiles[i]=pathFolder+file_name+Integer.toString(i+1)+ext;			
+			CreateArffFileZK.createArffFile(fileName+Integer.toString(i+1) );
+			pathArffTrainingFiles[i]=pathFolder+fileName+Integer.toString(i+1)+ext;			
 		}//for  	
     	
     	try(BufferedReader arffReader = new BufferedReader(new FileReader(pathArffDataset));
@@ -87,7 +87,7 @@ public class WalkForwardZK {
     public void walkForwardTest(String pathArffDataset) throws IOException {
 		
     	String line="";		
-		String file_name="TestSet"; 
+		String fileName="TestSet"; 
 		String nameRelation="my_TestSet";
 		String ext=".arff";
 		String pathFolder = HelpZK.getMyProperty("pathArffFolder");
@@ -100,8 +100,8 @@ public class WalkForwardZK {
 		
     	int i=0;
     	for (i = 0; i < nFilesInt ; i++) {
-    		CreateArffFileZK.createArffFile(file_name+Integer.toString(i+2) );
-    		pathArffTestFiles[i]=pathFolder+file_name+Integer.toString(i+2)+ext;			
+    		CreateArffFileZK.createArffFile(fileName+Integer.toString(i+2) );
+    		pathArffTestFiles[i]=pathFolder+fileName+Integer.toString(i+2)+ext;			
  
 		}//for
     	

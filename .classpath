@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="D:/Libri/Universita/ProgettoFalessi/postgresql-42.2.19.jar"/>
 	<classpathentry kind="lib" path="D:/Libri/Universita/ProgettoFalessi/jcommon-1.0.8.jar"/>
 	<classpathentry kind="lib" path="D:/Libri/Universita/ProgettoFalessi/jfreechart-1.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Weka-3-8-6/weka.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
