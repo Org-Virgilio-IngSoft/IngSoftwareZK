@@ -11,17 +11,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import commands.CommandGitShowZK;
 import database.DBaseZK;
 import helper.HelpZK;
 import helper.HelpMathZK;
+import logger.MyLoggerZK;
 
 /**
  * @author Virgilio
  *
  */
-public class CHURNmetricZK {
+public class CHURNmetricZK implements Runnable{
+	
+private int versione;
+	
+	public CHURNmetricZK(int versione) {
+		this.versione=versione;
+	}
+	
+	@Override
+	  public void run() {
+	    // use the parameter here
+		 
+			try {
+				calculateCHURNforSpecificVersion(versione);
+			} catch (SQLException | IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	  }//fine metodo
 	
 public void calculateCHURNforEveryVersion() throws IOException, SQLException, InterruptedException {
 		
@@ -42,6 +61,8 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
 		int churnMax=0;
 		double churnAvg=0;
 		List<Integer> listChurnValues=new ArrayList<>();
+		
+		String logMsg="CHURN ZK V "+Integer.toString(version)+" ";
 	
 		CommandGitShowZK comGitShow= new  CommandGitShowZK();
 				
@@ -63,6 +84,7 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
           while( rsJavaClasses.next() ) {
         	
 			String fileNameJava=rsJavaClasses.getString("NameClass");
+			MyLoggerZK.logInfo( logMsg.concat(fileNameJava) );
 			
 			String query2 = "SELECT * FROM \"ListJavaClassesZK\"  "
 					+"WHERE  \"NameClass\" =? AND \"Version\"= ? ";
@@ -74,7 +96,7 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
 				
 				while(rsChurn.next()) {
 																
-		          String commit = rsJavaClasses.getString("Commit");
+		          String commit = rsChurn.getString("Commit");
 		    
 		          listaFile=comGitShow.commandGitShow(commit);		    			      
 			
@@ -144,7 +166,7 @@ public void handleListFilesGitShow(List<String> listaFile,String fileNameJava, L
 		 int churn=Integer.parseInt(locAdded)-Integer.parseInt(locDeleted);
 		
 		 listChurnValues.add(churn);
-									
+									 
 		 break;
 	 }//if
 	

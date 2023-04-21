@@ -10,12 +10,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import dataset.DatasetJavaClassesAndVersionsZK;
+
 import helper.HelpZK;
+
 import metrics.CHGSETSIZEmetricZK;
 import metrics.CHURNmetricZK;
 import metrics.LOCADDEDmetricZK;
 import metrics.NAUTHmetricZK;
+
 import proportion.ProportionZK;
+
 import weka.ConvertCsvToArffZK;
 import weka.CreateArffFileZK;
 import weka.WalkForwardZK;
@@ -40,7 +44,7 @@ public class ClassToExecuteZK {
 		String pathLogLinkageZK = HelpZK.getMyProperty("pathLogFileLinkage");			
 		double linkage = LinkageZK.calculateLinkageZK(pathLogLinkageZK);
 			
-		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", linkage);
+		logger.log(Level.INFO ,"LINKAGE ZOOKEEPER: {0}", linkage);
 		
 	    ReleasesZK release = new ReleasesZK();
 		String pathFileTicketsWithAffectedVersions = HelpZK.getMyProperty("pathFileTicketsWithAffectedVersions");
@@ -74,14 +78,34 @@ public class ClassToExecuteZK {
 		NAUTHmetricZK auth= new NAUTHmetricZK();
 		auth.calculateNAUTHforEveryVersion();
 		
-		LOCADDEDmetricZK loc = new LOCADDEDmetricZK();
-		loc.calculateLOCADDEDforEveryVersion();
 		
-		CHGSETSIZEmetricZK chg = new CHGSETSIZEmetricZK();
-		chg.calculateCHGSETSIZEforEveryVersion();
+		int i=0;
+		String maxNumberOfversions = HelpZK.getMyProperty("maxNumberOfversions"); 
+		int max = Integer.parseInt(maxNumberOfversions);
 		
-		CHURNmetricZK churn = new CHURNmetricZK();
-		churn.calculateCHURNforEveryVersion();
+		Thread[] threadsLOCADDED = new Thread[max+1];	
+		for ( i = 1; i <= max ; i++) {
+			threadsLOCADDED[i] = new Thread(new LOCADDEDmetricZK(i));
+			threadsLOCADDED[i].start();
+			
+		}
+				
+		
+		Thread[] threadsCHGSETSIZE = new Thread[max+1];	
+		for ( i = 1; i <= max ; i++) {
+			threadsCHGSETSIZE[i] = new Thread(new CHGSETSIZEmetricZK(i));
+			threadsCHGSETSIZE[i].start();
+			
+		}
+				
+		
+		Thread[] threadsCHURN = new Thread[max+1];	
+		for ( i = 1; i <= max ; i++) {
+			threadsCHURN[i] = new Thread(new CHURNmetricZK(i));
+			threadsCHURN[i].start();
+			
+		}
+		
 		
 		String pathDatasetCSV = HelpZK.getMyProperty("pathDatasetCSV");
 		String pathDatasetARFF = HelpZK.getMyProperty("pathDatasetARFF");
