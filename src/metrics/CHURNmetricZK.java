@@ -36,7 +36,7 @@ private int versione;
 			try {
 				calculateCHURNforSpecificVersion(versione);
 			} catch (SQLException | IOException | InterruptedException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 				Thread.currentThread().interrupt();
 			}
