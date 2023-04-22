@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import dataset.DatasetJavaClassesAndVersionsZK;
 
+import helper.HelpPathZK;
 import helper.HelpZK;
 import metrics.BuggyZK;
 import metrics.CHGSETSIZEmetricZK;
@@ -113,6 +114,14 @@ public class ClassToExecuteZK {
 		walkForward.walkForwardTraining(pathDatasetARFF);
 		walkForward.walkForwardTest(pathDatasetARFF);
 		
+		
+		String[] pathTrainSets;
+		pathTrainSets=HelpPathZK.createPathFileTrainingSet();
+		HelpPathZK.printPaths(pathTrainSets);
+		
+		String[] pathTestSets;
+		pathTestSets=HelpPathZK.createPathFileTestSet();
+		HelpPathZK.printPaths(pathTestSets);
 		
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteZK!!");
