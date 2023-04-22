@@ -21,8 +21,8 @@ public class WalkForwardZK {
 	public void walkForwardTraining(String pathArffDataset) throws IOException {
         
 		String line="";		
-		String fileName="TrainingSet"; 
-		String nameRelation="my_TrainingSet";
+		String fileName="TrainingSetZK"; 
+		String nameRelation="my_TrainingSetZK";
 		String ext=".arff";
 		String pathFolder = HelpZK.getMyProperty("pathArffFolder");
     	String nFilesString=HelpZK.getMyProperty("numberTrainingSetsToCreate");  	
@@ -87,8 +87,8 @@ public class WalkForwardZK {
     public void walkForwardTest(String pathArffDataset) throws IOException {
 		
     	String line="";		
-		String fileName="TestSet"; 
-		String nameRelation="my_TestSet";
+		String fileName="TestSetZK"; 
+		String nameRelation="my_TestSetZK";
 		String ext=".arff";
 		String pathFolder = HelpZK.getMyProperty("pathArffFolder");
 		String nFilesString=HelpZK.getMyProperty("numberTestSetsToCreate");

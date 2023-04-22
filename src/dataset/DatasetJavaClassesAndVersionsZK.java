@@ -24,7 +24,7 @@ public class DatasetJavaClassesAndVersionsZK {
 		ResultSet rsJavaNames;
 		
 		String queryJavaClassesNames="SELECT DISTINCT \"NameClass\", \"Version\"  "
-				+ "FROM \"ListJavaClassesBK\"  "
+				+ "FROM \"ListJavaClassesZK\"  "
 				+ "WHERE \"NameClass\" LIKE '%.java'  "
 				+ "ORDER BY \"Version\"  " ;
 		
@@ -37,7 +37,7 @@ public class DatasetJavaClassesAndVersionsZK {
 			String fileJavaName=rsJavaNames.getString("NameClass");
 			int version = rsJavaNames.getInt("Version");
 			
-			String queryInsert="INSERT INTO \"DataSetBK\"  "
+			String queryInsert="INSERT INTO \"DataSetZK\"  "
 			         +" ( \"Version\"  , \"NameClass\"  )  "
 					 +"VALUES ( ? , ? ) " ;
 					           		

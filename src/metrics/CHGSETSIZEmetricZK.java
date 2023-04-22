@@ -94,7 +94,7 @@ public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLExceptio
 			MyLoggerZK.logInfo(logMsg.concat(fileJavaName));
 			
 			
-			String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
+			String query2 = "SELECT * FROM \"ListJavaClassesZK\"  "
 					+ "WHERE  \"NameClass\" =? AND \"Version\"= ? ";
 					
 			

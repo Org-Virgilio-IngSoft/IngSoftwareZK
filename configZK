@@ -9,13 +9,13 @@ pathFileTicketsWithAffectedVersions=D:\\Libri\\Universita\\ProgettoFalessi\\Zook
 pathTicketsIDwithAffectedVersionAndIDversionZK=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsIDwithAffectedVersionAndIDversionZK.txt
 pathTicketsBugWithFVOVdates=D:\\Libri\\Universita\\ProgettoFalessi\\ZookeeperRepo\\TicketsBugWithFVOVdates.txt
 
-pathArffFolder=D:\Libri\Universita\ProgettoFalessi\ZK\
-pathDatasetCSV=D:\\Libri\\Universita\\ProgettoFalessi\\ZK\\ZOOKEEPERVersionInfo.csv
-pathDatasetARFF=D:\\Libri\\Universita\\ProgettoFalessi\\ZK\\ZOOKEEPERVersionInfo.arff
+pathArffFolder=D:\\Libri\\Universita\\ProgettoFalessi\\ZK\\
+pathDatasetCSV=D:\\Libri\\Universita\\ProgettoFalessi\\ZK\\DataSetZK.csv
+pathDatasetARFF=D:\\Libri\\Universita\\ProgettoFalessi\\ZK\\DataSetZK.arff
 
-numberTrainingSetsToCreate=4
-numberTestSetsToCreate=4
+numberTrainingSetsToCreate=24
+numberTestSetsToCreate=24
 
-maxNumberOfversions=23
+maxNumberOfversions=25
 
 dateNOsnoring=2016-02-22

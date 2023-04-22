@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import dataset.DatasetJavaClassesAndVersionsZK;
 
 import helper.HelpZK;
-
+import metrics.BuggyZK;
 import metrics.CHGSETSIZEmetricZK;
 import metrics.CHURNmetricZK;
 import metrics.LOCADDEDmetricZK;
@@ -86,30 +86,27 @@ public class ClassToExecuteZK {
 		Thread[] threadsLOCADDED = new Thread[max+1];	
 		for ( i = 1; i <= max ; i++) {
 			threadsLOCADDED[i] = new Thread(new LOCADDEDmetricZK(i));
-			threadsLOCADDED[i].start();
-			
+			threadsLOCADDED[i].start();		
 		}
-				
-		
+					
 		Thread[] threadsCHGSETSIZE = new Thread[max+1];	
 		for ( i = 1; i <= max ; i++) {
 			threadsCHGSETSIZE[i] = new Thread(new CHGSETSIZEmetricZK(i));
-			threadsCHGSETSIZE[i].start();
-			
+			threadsCHGSETSIZE[i].start();		
 		}
-				
-		
+					
 		Thread[] threadsCHURN = new Thread[max+1];	
 		for ( i = 1; i <= max ; i++) {
 			threadsCHURN[i] = new Thread(new CHURNmetricZK(i));
-			threadsCHURN[i].start();
-			
+			threadsCHURN[i].start();		
 		}
 		
+		BuggyZK buggy = new BuggyZK();
+		buggy.giveLabelBuggytoJavaClasses();
 		
 		String pathDatasetCSV = HelpZK.getMyProperty("pathDatasetCSV");
 		String pathDatasetARFF = HelpZK.getMyProperty("pathDatasetARFF");
-		CreateArffFileZK.createArffFile("ZOOKEEPERVersionInfo");
+		CreateArffFileZK.createArffFile("DataSetZK");
 		ConvertCsvToArffZK.convertMyDataset(pathDatasetCSV, pathDatasetARFF);
 				
 		WalkForwardZK walkForward = new WalkForwardZK();		
@@ -118,7 +115,7 @@ public class ClassToExecuteZK {
 		
 		
 		
-		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
+		logger.log(Level.INFO ,"FINE ClassToExecuteZK!!");
 			
 	}//fine main
 

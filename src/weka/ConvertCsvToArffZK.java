@@ -32,10 +32,10 @@ public class ConvertCsvToArffZK {
 				              numeric,//ChgSetSize
 				              numeric,//MaxChgSetSize
 				              numeric,//AvgChgSetSize
-				              "{true,false}"}; // buggy
+				              "{t,f}"}; // buggy
 		int lungLabels=0;
 		
-		String datasetName="@RELATION my_dataset";
+		String datasetName="@RELATION my_datasetZK";
 		
 	      
 		try(BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
